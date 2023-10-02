@@ -173,7 +173,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &153336990
 Transform:
   m_ObjectHideFlags: 0
@@ -290,7 +290,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &226965863
 Transform:
   m_ObjectHideFlags: 0
@@ -775,7 +775,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 956086856}
   m_LocalRotation: {x: 0.44650185, y: -0.15854032, z: 0.29466167, w: 0.82986486}
-  m_LocalPosition: {x: -0.053969175, y: 0.62105346, z: 0.75969374}
+  m_LocalPosition: {x: 0, y: 0.61, z: 0.69}
   m_LocalScale: {x: 0.15147002, y: 0.15147002, z: 0.15147}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -798,6 +798,7 @@ MonoBehaviour:
   boomerangPrefab: {fileID: 2965748588323243088, guid: dd623f720934ed047a67eb52ab320b84,
     type: 3}
   firePoint: {fileID: 68814707}
+  fireRate: 0.5
 --- !u!136 &956086859
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -877,6 +878,7 @@ GameObject:
   - component: {fileID: 1049935668}
   - component: {fileID: 1049935673}
   - component: {fileID: 1049935674}
+  - component: {fileID: 1049935675}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1014,6 +1016,22 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &1049935675
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1049935667}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1428f16af511959469f51657f491f116, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weapons:
+  - {fileID: 153336989}
+  - {fileID: 226965862}
+  - {fileID: 956086856}
 --- !u!1 &1340467424
 GameObject:
   m_ObjectHideFlags: 0
