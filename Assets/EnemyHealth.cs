@@ -2,20 +2,34 @@ using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour
 {
-    public int maxHealth = 20; // Vida máxima del enemigo
-    private int currentHealth; // Vida actual del enemigo
+    public int maxHealth = 10;
+    public int maxShieldHealth = 5;
 
-    public Shield shield; // Referencia al componente de escudo
+    private int currentHealth;
+    private int currentShieldHealth;
 
-    private void Start()
+    void Start()
     {
         currentHealth = maxHealth;
+        currentShieldHealth = maxShieldHealth;
+    }
+
+    public void TakeDamageShield(int damage)
+    {
+        if (currentShieldHealth > 0)
+        {
+            currentShieldHealth -= damage;
+
+            if (currentShieldHealth <= 0)
+            {
+                currentShieldHealth = 0;
+            }
+        }
     }
 
     public void TakeDamage(int damage)
     {
-        // Si el escudo está roto, el enemigo recibe daño
-        if (!shield.IsShieldActive())
+        if (currentShieldHealth <= 0)
         {
             currentHealth -= damage;
 
@@ -28,7 +42,12 @@ public class EnemyHealth : MonoBehaviour
 
     void Die()
     {
-        // Aquí puedes agregar la lógica de lo que sucede cuando el enemigo muere
+        // Puedes personalizar esta función para hacer cualquier cosa cuando el enemigo muera, como reproducir una animación, reproducir un sonido, etc.
         Destroy(gameObject);
+    }
+
+    public int  GetCurrenShieldtHealth()
+    {
+        return currentShieldHealth; 
     }
 }

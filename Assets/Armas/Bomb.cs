@@ -34,14 +34,14 @@ public class Bomb : MonoBehaviour
 
         foreach (Collider hit in colliders)
         {
-            // Aplicar daño a los objetos que tengan un componente "Health" (ajusta según tus necesidades)
-            /*
-            Health targetHealth = hit.GetComponent<Health>();
-            if (targetHealth != null)
+            if (hit.CompareTag("Enemy"))
             {
-                targetHealth.TakeDamage(explosionDamage);
+                EnemyHealth enemyHealth = hit.GetComponent<EnemyHealth>();
+                if (enemyHealth != null)
+                {
+                    enemyHealth.TakeDamageShield(explosionDamage);
+                }
             }
-            */
         }
 
         // Destruir la bomba después de la explosión

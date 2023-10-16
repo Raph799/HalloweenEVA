@@ -57,6 +57,19 @@ public class BoomerangBullet : MonoBehaviour
         if (!isReturning)
         {
             // Comprobar colisiones con enemigos u otros objetos aquí
+            if (other.CompareTag("Enemy"))
+            {
+                // Obtener el componente "EnemyHealth" del enemigo
+                EnemyHealth enemyHealth = other.GetComponent<EnemyHealth>();
+                if (enemyHealth != null)
+                {
+                    // Aplicar el daño de la bala al enemigo
+                    enemyHealth.TakeDamage((int)damage);
+                }
+
+                // Destruir la bala
+                Destroy(gameObject);
+            }
         }
     }
 }

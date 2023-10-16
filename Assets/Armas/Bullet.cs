@@ -17,13 +17,11 @@ public class Bullet : MonoBehaviour
         if (other.CompareTag("Enemy"))
         {
             // Si colisiona con un enemigo, causa daño al enemigo (ajusta esto según tu sistema de salud)
-            /*
             EnemyHealth enemyHealth = other.GetComponent<EnemyHealth>();
             if (enemyHealth != null)
             {
                 enemyHealth.TakeDamage(damage);
             }
-            */
 
             // Destruye la bala
             Destroy(gameObject);
