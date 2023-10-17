@@ -5,10 +5,12 @@ public class GunController : MonoBehaviour
     public GameObject bulletPrefab;
     public Transform bulletSpawnPoint;
     public float fireRate = 0.5f;
-
-    private float nextFireTime = 0.0f;
+    public SaludJugador jugador; // Agrega una referencia al script de salud del jugador
     [SerializeField] float force = 1000f;
 
+    public int danioDisparo = 10; // Variable pública para el daño al disparar
+
+    private float nextFireTime = 0.0f;
 
     void Update()
     {
@@ -21,6 +23,9 @@ public class GunController : MonoBehaviour
 
     void Shoot()
     {
+        // Resta vida al jugador al disparar utilizando la variable pública danioDisparo
+        jugador.RecibirDanio(danioDisparo);
+
         // Instancia la bala en el punto de origen del arma
         GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
 

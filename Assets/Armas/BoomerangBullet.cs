@@ -5,7 +5,7 @@ public class BoomerangBullet : MonoBehaviour
     public float speed = 10.0f;
     public float returnSpeed = 15.0f;
     public float maxDistance = 10.0f;
-    public float damage = 10.0f;
+    public float healingAmount = 10.0f; // Cantidad de vida que recupera al jugador
     public float maxTimeAlive = 5.0f; // Tiempo máximo que la bala puede estar activa antes de desaparecer
 
     private Transform player;
@@ -41,6 +41,13 @@ public class BoomerangBullet : MonoBehaviour
             // Comprobar si la bala ha vuelto al jugador
             if (Vector3.Distance(transform.position, player.position) < 0.1f)
             {
+                // Recuperar vida del jugador
+                SaludJugador saludJugador = player.GetComponent<SaludJugador>();
+                if (saludJugador != null)
+                {
+                    saludJugador.Curar((int)healingAmount);
+                }
+
                 Destroy(gameObject); // Destruir la bala boomerang al tocar al jugador
             }
         }
@@ -49,27 +56,6 @@ public class BoomerangBullet : MonoBehaviour
         if (Time.time - startTime >= maxTimeAlive)
         {
             Destroy(gameObject);
-        }
-    }
-
-    void OnTriggerEnter(Collider other)
-    {
-        if (!isReturning)
-        {
-            // Comprobar colisiones con enemigos u otros objetos aquí
-            if (other.CompareTag("Enemy"))
-            {
-                // Obtener el componente "EnemyHealth" del enemigo
-                EnemyHealth enemyHealth = other.GetComponent<EnemyHealth>();
-                if (enemyHealth != null)
-                {
-                    // Aplicar el daño de la bala al enemigo
-                    enemyHealth.TakeDamage((int)damage);
-                }
-
-                // Destruir la bala
-                Destroy(gameObject);
-            }
         }
     }
 }

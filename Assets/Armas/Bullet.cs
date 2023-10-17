@@ -16,11 +16,21 @@ public class Bullet : MonoBehaviour
         // Verifica si la bala colisiona con un enemigo u otro objeto
         if (other.CompareTag("Enemy"))
         {
-            // Si colisiona con un enemigo, causa daño al enemigo (ajusta esto según tu sistema de salud)
+            // Intenta obtener el componente "EnemyHealth"
             EnemyHealth enemyHealth = other.GetComponent<EnemyHealth>();
+
             if (enemyHealth != null)
             {
                 enemyHealth.TakeDamage(damage);
+            }
+            else
+            {
+                // Si no se encuentra "EnemyHealth," intenta obtener el componente "IceCream"
+                IceCream enemyIceCream = other.GetComponent<IceCream>();
+                if (enemyIceCream != null)
+                {
+                    enemyIceCream.TakeDamage(damage);
+                }
             }
 
             // Destruye la bala
