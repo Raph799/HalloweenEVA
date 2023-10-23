@@ -95,14 +95,6 @@ public class BoomerangBullet : MonoBehaviour
                         {
                             enemigozzz.TakeDamage(damage);
                         }
-                        else
-                        {
-                            BossHealth bossHealth = other.GetComponent<BossHealth>();
-                            if (bossHealth != null)
-                            {
-                                bossHealth.TakeDamage(damage);
-                            }
-                        }
                     }
                 }
             }

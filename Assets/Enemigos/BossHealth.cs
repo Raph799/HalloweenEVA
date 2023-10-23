@@ -2,12 +2,33 @@ using UnityEngine;
 
 public class BossHealth : MonoBehaviour
 {
+    
+    [Header("health")]
     public int maxHealth = 1000; // Establece la salud máxima del jefe en 1000
     private int currentHealth;
+    [Header("spawn")]
+    public GameObject[] enemyPrefabs; // Array de prefabs de enemigos disponibles.
+    public Transform[] spawnPoints;    // Array de puntos de spawn para los enemigos.
+    public float spawnInterval = 5.0f; // Intervalo de tiempo entre apariciones en segundos.
+    private float timer = 0.0f;
+    //public BossHealth bossHealth; // Referencia al script BossHealth del jefe.
+    private bool canSpawn = true;
 
     void Start()
     {
         currentHealth = maxHealth; // Inicializa la salud actual al valor máximo
+        //bossHealth = GetComponent<BossHealth>();
+    }
+
+    void Update()
+    {
+        timer += Time.deltaTime;
+
+        if (canSpawn && timer >= spawnInterval)
+        {
+            SpawnEnemy();
+            timer = 0.0f; // Reinicia el temporizador.
+        }
     }
 
     public void TakeDamage(int damage)
@@ -29,4 +50,31 @@ public class BossHealth : MonoBehaviour
         // Por ejemplo, reproducir una animación de muerte o eliminar el GameObject
         Destroy(gameObject);
     }
+
+    void SpawnEnemy()
+    {
+        if (currentHealth > 50) // Verifica que la salud del jefe sea mayor de 50.
+        {
+            // Elige aleatoriamente uno de los prefabs de enemigos disponibles.
+            int randomPrefabIndex = Random.Range(0, enemyPrefabs.Length);
+            GameObject selectedEnemyPrefab = enemyPrefabs[randomPrefabIndex];
+
+            // Elige aleatoriamente uno de los puntos de spawn.
+            int randomSpawnIndex = Random.Range(0, spawnPoints.Length);
+            Transform selectedSpawnPoint = spawnPoints[randomSpawnIndex];
+
+            // Crea una instancia del enemigo seleccionado en el punto de spawn seleccionado.
+            Instantiate(selectedEnemyPrefab, selectedSpawnPoint.position, Quaternion.identity);
+
+            // Resta 10 puntos de salud al jefe cada vez que spawnee un enemigo.
+           TakeDamage(10);
+        }
+        else
+        {
+            canSpawn = false; // Desactiva la capacidad de spawnear si la salud del jefe es menor o igual a 50.
+        }
+    }
 }
+
+}
+
