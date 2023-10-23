@@ -31,6 +31,30 @@ public class Bullet : MonoBehaviour
                 {
                     enemyIceCream.TakeDamage(damage);
                 }
+                else
+                {
+                    Normalito normalito = other.GetComponent<Normalito>();
+                    if (normalito != null)
+                    {
+                        normalito.TakeDamage(damage);
+                    }
+                    else
+                    {
+                        Enemigozzz enemigozzz = other.GetComponent<Enemigozzz>();
+                        if (enemigozzz != null)
+                        {
+                            enemigozzz.TakeDamage(damage);
+                        }
+                        else
+                        {
+                            BossHealth bossHealth = other.GetComponent<BossHealth>();
+                            if (bossHealth != null)
+                            {
+                                bossHealth.TakeDamage(damage);
+                            }
+                        }
+                    }
+                }
             }
 
             // Destruye la bala

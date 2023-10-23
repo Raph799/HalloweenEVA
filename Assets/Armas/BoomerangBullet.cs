@@ -7,6 +7,7 @@ public class BoomerangBullet : MonoBehaviour
     public float maxDistance = 10.0f;
     public float healingAmount = 10.0f; // Cantidad de vida que recupera al jugador
     public float maxTimeAlive = 5.0f; // Tiempo máximo que la bala puede estar activa antes de desaparecer
+    public int damage = 5;
 
     private Transform player;
     private bool isReturning = false;
@@ -47,6 +48,10 @@ public class BoomerangBullet : MonoBehaviour
                 {
                     saludJugador.Curar((int)healingAmount);
                 }
+                else
+                {
+
+                }
 
                 Destroy(gameObject); // Destruir la bala boomerang al tocar al jugador
             }
@@ -57,5 +62,53 @@ public class BoomerangBullet : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Enemy"))
+        {
+            EnemyHealth enemyHealth = other.GetComponent<EnemyHealth>();
+
+            if (enemyHealth != null)
+            {
+                enemyHealth.TakeDamage(damage);
+            }
+            else
+            {
+                IceCream enemyIceCream = other.GetComponent<IceCream>();
+                if (enemyIceCream != null)
+                {
+                    enemyIceCream.TakeDamage(damage);
+                }
+                else
+                {
+                    Normalito normalito = other.GetComponent<Normalito>();
+                    if (normalito != null)
+                    {
+                        normalito.TakeDamage(damage);
+                    }
+                    else
+                    {
+                        Enemigozzz enemigozzz = other.GetComponent<Enemigozzz>();
+                        if (enemigozzz != null)
+                        {
+                            enemigozzz.TakeDamage(damage);
+                        }
+                        else
+                        {
+                            BossHealth bossHealth = other.GetComponent<BossHealth>();
+                            if (bossHealth != null)
+                            {
+                                bossHealth.TakeDamage(damage);
+                            }
+                        }
+                    }
+                }
+            }
+
+            Destroy(gameObject);
+        }
+        
     }
 }

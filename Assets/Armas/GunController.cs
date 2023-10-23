@@ -7,6 +7,7 @@ public class GunController : MonoBehaviour
     public float fireRate = 0.5f;
     public SaludJugador jugador; // Agrega una referencia al script de salud del jugador
     [SerializeField] float force = 1000f;
+    [SerializeField] float bulletSelfDestruct = 3f;
 
     public int danioDisparo = 10; // Variable pública para el daño al disparar
 
@@ -34,6 +35,6 @@ public class GunController : MonoBehaviour
         bulletRigidbody.AddForce(bulletSpawnPoint.forward * force);
 
         // Destruye la bala después de un tiempo (ajusta esto según tus necesidades)
-        Destroy(bullet, 3.0f);
+        Destroy(bullet, bulletSelfDestruct);
     }
 }

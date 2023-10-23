@@ -112,7 +112,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fuseDuration: 3
-  explosionRadius: 5
+  explosionRadius: 1000
   explosionDamage: 50
 --- !u!54 &8807724708564295196
 Rigidbody:

@@ -4,6 +4,7 @@ public class EnemyHealth : MonoBehaviour
 {
     public int maxHealth = 10;
     public int maxShieldHealth = 5;
+    public GameObject deathEffectPrefab; // Prefab a instanciar al morir
 
     private int currentHealth;
     private int currentShieldHealth;
@@ -42,12 +43,17 @@ public class EnemyHealth : MonoBehaviour
 
     void Die()
     {
-        // Puedes personalizar esta función para hacer cualquier cosa cuando el enemigo muera, como reproducir una animación, reproducir un sonido, etc.
+        if (deathEffectPrefab != null)
+        {
+            Instantiate(deathEffectPrefab, transform.position, transform.rotation);
+        }
+
+        // Destruye el objeto actual
         Destroy(gameObject);
     }
 
-    public int  GetCurrenShieldtHealth()
+    public int GetCurrentShieldHealth()
     {
-        return currentShieldHealth; 
+        return currentShieldHealth;
     }
 }

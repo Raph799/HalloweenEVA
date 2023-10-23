@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 8529481468442733609}
   - component: {fileID: 8529481468442733608}
   - component: {fileID: 8529481468442733611}
+  - component: {fileID: -4297517444028528558}
   m_Layer: 0
   m_Name: Boomer
   m_TagString: Enemy
@@ -134,3 +135,18 @@ MonoBehaviour:
   radioExplosion: 5
   danioExplosion: 50
   rangoDeEspera: 2
+--- !u!114 &-4297517444028528558
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8529481468442733610}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc43dfce7f6fcef4680fa4e321ad7304, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 5
+  deathEffectPrefab: {fileID: 1842247282771740356, guid: 44f77c0690287f44f9e4071b20678d73,
+    type: 3}

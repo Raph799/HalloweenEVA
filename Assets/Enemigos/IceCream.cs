@@ -7,6 +7,7 @@ public class IceCream : MonoBehaviour
     private int currentHealth;
 
     public GameObject enemyPrefab;
+    public GameObject deathEffectPrefab; // Prefab a instanciar al morir
     public List<Transform> spawnPoints;
 
     void Start()
@@ -30,9 +31,13 @@ public class IceCream : MonoBehaviour
 
     void Die()
     {
-        // Puedes agregar aquí cualquier lógica adicional cuando el enemigo muere.
-        // Por ejemplo, reproducir una animación de muerte o desactivar el objeto.
-        gameObject.SetActive(false);
+        if (deathEffectPrefab != null)
+        {
+            Instantiate(deathEffectPrefab, transform.position, transform.rotation);
+        }
+
+        // Destruye el objeto actual
+        Destroy(gameObject);
     }
 
     void SpawnEnemiesOnDamage()

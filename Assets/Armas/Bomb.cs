@@ -26,6 +26,7 @@ public class Bomb : MonoBehaviour
 
     void Explode()
     {
+        
         // Marcar la bomba como explotada para evitar múltiples explosiones
         hasExploded = true;
 
