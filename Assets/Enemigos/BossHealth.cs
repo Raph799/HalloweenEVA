@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class BossHealth : MonoBehaviour
 {
-    
     [Header("health")]
     public int maxHealth = 1000; // Establece la salud máxima del jefe en 1000
     private int currentHealth;
@@ -11,13 +10,11 @@ public class BossHealth : MonoBehaviour
     public Transform[] spawnPoints;    // Array de puntos de spawn para los enemigos.
     public float spawnInterval = 5.0f; // Intervalo de tiempo entre apariciones en segundos.
     private float timer = 0.0f;
-    //public BossHealth bossHealth; // Referencia al script BossHealth del jefe.
     private bool canSpawn = true;
 
     void Start()
     {
         currentHealth = maxHealth; // Inicializa la salud actual al valor máximo
-        //bossHealth = GetComponent<BossHealth>();
     }
 
     void Update()
@@ -34,9 +31,6 @@ public class BossHealth : MonoBehaviour
     public void TakeDamage(int damage)
     {
         currentHealth -= damage; // Resta el daño recibido a la salud actual
-
-        // Puedes agregar aquí lógica adicional, como reproducir efectos visuales o sonidos
-        // cuando el jefe recibe daño.
 
         if (currentHealth <= 0)
         {
@@ -67,14 +61,17 @@ public class BossHealth : MonoBehaviour
             Instantiate(selectedEnemyPrefab, selectedSpawnPoint.position, Quaternion.identity);
 
             // Resta 10 puntos de salud al jefe cada vez que spawnee un enemigo.
-           TakeDamage(10);
+            TakeDamage(10);
         }
         else
         {
             canSpawn = false; // Desactiva la capacidad de spawnear si la salud del jefe es menor o igual a 50.
         }
     }
-}
 
+    // Método para curar al jefe.
+    public void Curar(int cantidadCuracion)
+    {
+        currentHealth = Mathf.Min(currentHealth + cantidadCuracion, maxHealth);
+    }
 }
-

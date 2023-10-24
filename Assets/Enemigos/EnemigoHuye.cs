@@ -5,20 +5,29 @@ using UnityEngine.AI;
 
 public class EnemigoHuye : MonoBehaviour
 {
-    public Transform jugador;
     public float distanciaParaHuir = 10f;
     public float velocidadHuida = 5f;
 
     private NavMeshAgent agente;
+    private Transform jugador;
     private Vector3 destinoHuida;
 
     void Start()
     {
         agente = GetComponent<NavMeshAgent>();
+        // Buscar al jugador con el tag "Player" al inicio
+        jugador = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
     void Update()
     {
+        if (jugador == null)
+        {
+            // Si el jugador no se encuentra, detén al enemigo
+            agente.speed = 0f;
+            return;
+        }
+
         float distanciaAlJugador = Vector3.Distance(transform.position, jugador.position);
 
         if (distanciaAlJugador < distanciaParaHuir)

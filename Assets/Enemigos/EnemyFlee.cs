@@ -5,26 +5,35 @@ using UnityEngine.AI;
 
 public class EnemyFlee : MonoBehaviour
 {
-    public Transform jugador;
     public float distanciaParaHuir = 10f;
     public float distanciaParaTocar = 3f;
     public float velocidadHuida = 5f;
     public float velocidadHuidaMaxima = 10f;
     public float velocidadAproximacion = 2f;
-    public float rangoDeAtk = 2f; 
+    public float rangoDeAtk = 2f;
     public int danio;
 
     private NavMeshAgent agente;
+    private Transform jugador;
     private Vector3 destinoHuida;
     private bool tocadoJugador = false;
 
     void Start()
     {
         agente = GetComponent<NavMeshAgent>();
+        // Buscar al jugador con el tag "Player" al inicio
+        jugador = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
     void Update()
     {
+        if (jugador == null)
+        {
+            // Si el jugador no se encuentra, detén al enemigo
+            agente.speed = 0f;
+            return;
+        }
+
         float distanciaAlJugador = Vector3.Distance(transform.position, jugador.position);
 
         if (!tocadoJugador)
@@ -37,7 +46,7 @@ public class EnemyFlee : MonoBehaviour
 
                 if (distanciaAlJugador < rangoDeAtk)
                 {
-                    //daño
+                    // Daño al jugador
                     jugador.GetComponent<SaludJugador>().RecibirDanio(danio);
 
                     // El enemigo ha tocado al jugador
