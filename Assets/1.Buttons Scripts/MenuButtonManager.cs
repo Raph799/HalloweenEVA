@@ -7,7 +7,7 @@ public class MenuButtonManager : MonoBehaviour
 {
     public void StartGame()
     {
-        SceneManager.LoadScene("SampleScene");
+        SceneManager.LoadScene("StartMovie");
     }
 
     public void QuitGame()
