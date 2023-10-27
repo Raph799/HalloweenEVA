@@ -9,6 +9,21 @@ EditorBuildSettings:
     path: Assets/Scenes/Menu.unity
     guid: 16786971068c9f64aa5e214e879eb019
   - enabled: 1
+    path: Assets/Scenes/StartMovie.unity
+    guid: b2d5ebe46fde6b44c9411a95a91a36b6
+  - enabled: 1
+    path: Assets/Scenes/Tutorial.unity
+    guid: 9448ad5dd66b343438ceda85800fb611
+  - enabled: 1
+    path: Assets/Scenes/GameOver.unity
+    guid: 0ec3b43ac113b4e478e15252b0af571d
+  - enabled: 1
+    path: Assets/Scenes/WinMovie.unity
+    guid: 2ccf1dc200617ee419014712ba67d0be
+  - enabled: 1
+    path: Assets/Scenes/Win.unity
+    guid: 1b8d170870d532f4b907650ccba2be8c
+  - enabled: 1
     path: Assets/Scenes/Zzzzz.unity
     guid: 99c9720ab356a0642a771bea13969a05
   m_configObjects: {}
