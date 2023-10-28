@@ -10,14 +10,22 @@ public class IceCream : MonoBehaviour
     public GameObject deathEffectPrefab; // Prefab a instanciar al morir
     public List<Transform> spawnPoints;
 
+    [SerializeField] EnemyHealthUI healthBar;
+
+    private void Awake()
+    {
+        healthBar = GetComponentInChildren<EnemyHealthUI>();
+    }
     void Start()
     {
         currentHealth = maxHealth;
+        healthBar.UpdateHealthBar(currentHealth, maxHealth);
     }
 
     public void TakeDamage(int damage)
     {
         currentHealth -= damage;
+        healthBar.UpdateHealthBar(currentHealth, maxHealth);
 
         if (currentHealth <= 0)
         {

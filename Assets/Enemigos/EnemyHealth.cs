@@ -6,13 +6,21 @@ public class EnemyHealth : MonoBehaviour
     public int maxShieldHealth = 5;
     public GameObject deathEffectPrefab; // Prefab a instanciar al morir
 
+    [SerializeField] EnemyHealthUI healthBar;
+
     private int currentHealth;
     private int currentShieldHealth;
+
+    private void Awake()
+    {
+        healthBar = GetComponentInChildren<EnemyHealthUI>();
+    }
 
     void Start()
     {
         currentHealth = maxHealth;
         currentShieldHealth = maxShieldHealth;
+        healthBar.UpdateHealthBar(currentHealth, maxHealth);
     }
 
     public void TakeDamageShield(int damage)
@@ -33,6 +41,7 @@ public class EnemyHealth : MonoBehaviour
         if (currentShieldHealth <= 0)
         {
             currentHealth -= damage;
+            healthBar.UpdateHealthBar(currentHealth, maxHealth);
 
             if (currentHealth <= 0)
             {

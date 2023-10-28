@@ -5,16 +5,25 @@ public class Normalito : MonoBehaviour
     public int maxHealth = 10;  // Valor editable desde el Editor
     public GameObject deathEffectPrefab; // Prefab que se instanciará al morir el enemigo
 
+    [SerializeField] EnemyHealthUI healthBar;
+
     private int currentHealth;
+
+    private void Awake()
+    {
+        healthBar = GetComponentInChildren<EnemyHealthUI>();
+    }
 
     private void Start()
     {
         currentHealth = maxHealth;
+        healthBar.UpdateHealthBar(currentHealth, maxHealth);
     }
 
     public void TakeDamage(int damage)
     {
         currentHealth -= damage;
+        healthBar.UpdateHealthBar(currentHealth, maxHealth);
 
         if (currentHealth <= 0)
         {
