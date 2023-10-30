@@ -1,68 +1,92 @@
 using System.Collections;
 using UnityEngine;
 using TMPro;
-using UnityEditor.Rendering;
 
 public class Dialogo : MonoBehaviour
 {
-    [SerializeField] private GameObject Temporal;
     [SerializeField] private GameObject PanelDialogo;
     [SerializeField] private TMP_Text TextoDialogo;
     [SerializeField, TextArea(4, 6)] private string[] LineasDialogo;
+    [SerializeField] private float tiempoVisible = 3f; // Tiempo en segundos que el diálogo estará visible.
 
     private float TypingTime = 0.05f;
-
-    private bool IsPlayerInRange;
-    public bool didDialogueStart;
     private int LineIndex;
+    private float timer;
+
+    private IEnumerator Start()
+    {
+        PanelDialogo.SetActive(false); // Asegurarse de que el panel de diálogo esté desactivado al inicio.
+        yield return null;
+        // StartCoroutine(StartDialogSequence());
+    }
 
     void Update()
     {
-        if (IsPlayerInRange && Input.GetKeyDown(KeyCode.E))
+        // Verificar si el diálogo está activo y actualizar el temporizador.
+        if (PanelDialogo.activeSelf && LineIndex <= LineasDialogo.Length)
         {
-            if (!didDialogueStart)
+            timer -= Time.deltaTime;
+            if (timer <= 0)
             {
-                StartDialogue();
+                bool end = !SiguienteDialogo();
+                if (!end)
+                {
+                    StartCoroutine(endDialog());
+                }
+
             }
-            else if (TextoDialogo.text == LineasDialogo[LineIndex])
-            {
-                SiguienteDialogo();
-            }
-            else
-            {
-                StopAllCoroutines();
-                TextoDialogo.text = LineasDialogo[LineIndex];
-            }
+        }
+        if(LineIndex == LineasDialogo.Length)
+        {
+            StartCoroutine(endDialog());
         }
     }
 
-    private void StartDialogue()
+    private IEnumerator StartDialogSequence()
     {
-        didDialogueStart = true;
-        PanelDialogo.SetActive(true);
-        Temporal.SetActive(false);
-        LineIndex = 0;
-        Time.timeScale = 0f;
-        StartCoroutine(ShowLine());
+
+        yield return new WaitForSeconds(1f); // Esperar 1 segundo antes de comenzar el diálogo.
+
+        while (LineIndex < LineasDialogo.Length)
+        {
+            StartDialogue();
+            yield return new WaitForSeconds(tiempoVisible);
+            bool end = SiguienteDialogo();
+            if (!end)
+            {
+                yield return new WaitForSeconds(1f);
+                
+            }
+            yield return new WaitForSeconds(1f); // Esperar 1 segundo entre líneas de diálogo.
+        }
     }
 
-    private void SiguienteDialogo()
+    public void StartDialogue()
+    {
+        PanelDialogo.SetActive(true);
+        LineIndex = 0;
+        //Time.timeScale = 0f;
+        StartCoroutine(ShowLine());
+        timer = tiempoVisible; // Inicializar el temporizador.
+    }
+
+    private bool SiguienteDialogo()
     {
         LineIndex++;
-
         if (LineIndex < LineasDialogo.Length)
         {
             StartCoroutine(ShowLine());
+            timer = tiempoVisible; // Reiniciar el temporizador para la siguiente línea.
         }
         else
         {
-            didDialogueStart = false;
-            PanelDialogo.SetActive(false);
-            Temporal.SetActive(true);
+            
             Time.timeScale = 1f;
-        }
-    }
 
+            return false;
+        }
+        return true;
+    }
 
     private IEnumerator ShowLine()
     {
@@ -75,22 +99,9 @@ public class Dialogo : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    public IEnumerator endDialog()
     {
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            IsPlayerInRange = true;
-            Temporal.SetActive(true);
-        }
-    }
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            IsPlayerInRange = false;
-            Temporal.SetActive(false);
-        }
+        yield return new WaitForSecondsRealtime(1);
+        PanelDialogo.SetActive(false);
     }
 }
- 
-//Script de Caperuza, revisar porfi<3
