@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BossHealth : MonoBehaviour
 {
@@ -35,6 +36,7 @@ public class BossHealth : MonoBehaviour
         if (currentHealth <= 0)
         {
             Die(); // Si la salud actual es igual o menor a 0, el jefe muere
+            SceneManager.LoadScene("WinMovie");
         }
     }
 
