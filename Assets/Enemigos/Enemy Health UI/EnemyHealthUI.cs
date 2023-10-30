@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class EnemyHealthUI : MonoBehaviour
 {
     [SerializeField] private Slider slider;
-    [SerializeField] private Camera cam;
+    [SerializeField] private Camera camera;
     [SerializeField] private Transform target;
     [SerializeField] private Vector3 offset;
 
@@ -20,7 +20,7 @@ public class EnemyHealthUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.rotation = cam.transform.rotation;
+        transform.rotation = camera.transform.rotation;
         target.position = target.position+offset;
     }
 
