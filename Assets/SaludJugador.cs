@@ -11,7 +11,7 @@ public class SaludJugador : MonoBehaviour
     void Start()
     {
         saludActual = saludMaxima; // Al inicio, la salud actual es igual a la salud máxima.
-        healthBar.SetMaxHealth(saludMaxima);
+        healthBar?.SetMaxHealth(saludMaxima);
     }
 
     // Método para recibir daño.
@@ -19,7 +19,7 @@ public class SaludJugador : MonoBehaviour
     {
         saludActual -= cantidadDanio;
 
-        healthBar.SetHealth(saludActual);
+        healthBar?.SetHealth(saludActual);
 
         // Comprobar si el jugador ha muerto.
         if (saludActual <= 0)
